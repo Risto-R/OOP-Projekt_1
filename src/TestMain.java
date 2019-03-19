@@ -25,7 +25,7 @@ public class TestMain {
         }
     }
 
-    public static void bussiLiinidNumbriga(String busStop, int number) throws Exception {
+    public static void bussiLiinidNumbriga(String busStop, String number) throws Exception {
         Parser parser = new Parser();
         ArrayList<BusStop> stops = parser.getStopId(busStop);
         if (stops.size() == 1) { // If only 1 stop was found - print out information
@@ -41,7 +41,7 @@ public class TestMain {
             Scanner scanner = new Scanner(System.in);
             int correctStop = scanner.nextInt();
 
-            parser.parseXML(stops.get(correctStop - 1).getStopId(), number);
+            parser.parseXML(stops.get(correctStop - 1).getStopId(),number);
         } else { // No stop with given name
             System.out.println("Peatust nimega " + busStop + " ei ole!");
         }
@@ -50,26 +50,33 @@ public class TestMain {
 
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("Sisestamine: Peatus või Peatus,Number");
         System.out.println("Programmi lõpetamiseks vajutage ENTER");
         System.out.println("Sisestage peatuse nimi: ");
         String busStop = scanner.nextLine();
-        System.out.println("Sisestage bussi number, et näha ainult neid bussiliine.\nENTER kui soovite näha kõiki bussiliine");
-        String bussiLiiniNumber = scanner.nextLine();
-
-        if (!bussiLiiniNumber.equals(""))
-            bussiLiinidNumbriga(busStop,Integer.valueOf(bussiLiiniNumber));
-        System.out.println();
-
 
         while (!busStop.equals("")) {
-            bussiLiinid(busStop);
-            System.out.println();
-            System.out.println("Programmi lõpetamiseks vajutage ENTER");
-            System.out.println("Sisestage peatuse nimi: ");
+            String[] input = busStop.split(",");
+            if (input.length == 1) {
+                bussiLiinid(input[0]);
+                System.out.println();
+                System.out.println("Programmi lõpetamiseks vajutage ENTER");
+                System.out.println("Sisestage peatuse nimi: ");
+            } else if (input.length == 2) {
+                bussiLiinidNumbriga(input[0],input[1]);
+                System.out.println();
+                System.out.println("Programmi lõpetamiseks vajutage ENTER");
+                System.out.println("Sisestage peatuse nimi: ");
+            } else {
+                System.out.println();
+                System.out.println("Sisend ei ole korrektne");
+                System.out.println("Programmi lõpetamiseks vajutage ENTER");
+                System.out.println("Sisestage peatuse nimi: ");
+            }
             busStop = scanner.nextLine();
-
         }
-        System.out.println("Programm lõpetas tegevuse!");
-
+        System.out.println("Programm lõpetas töö");
     }
+
 }
+

@@ -35,7 +35,7 @@ public class Parser {
     }
 
     // Kui sisestatakse ka bussi number
-    public void parseXML(String stopId,int num) throws ParserConfigurationException, SAXException, IOException {
+    public void parseXML(String stopId,String num) throws ParserConfigurationException, SAXException, IOException {
         // XML document parsing from URL
         String url = "http://lv.raad.tartu.ee:8877/SmartBusSVC.asmx/GetBoardInfo?stop_id=" + stopId;
         DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
@@ -53,8 +53,7 @@ public class Parser {
 
             String time = getValueFromElement(e, "text_begin"); // Bus time + bus number
             String title = getValueFromElement(e, "text_middle"); // Bus direction
-            int number = Character.getNumericValue(time.charAt(8));
-            if(num == number)
+            if(time.substring(7).trim().equals(num))
                 System.out.println(time + " " + title);
 
         }
