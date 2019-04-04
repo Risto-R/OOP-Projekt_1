@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Main {
 
-        public static void lähimadBussipeatused(Parser parser) throws Exception{
+        static void lähimadBussipeatused(Parser parser) throws Exception {
             //Parser parser = new Parser();
             Scanner scanner = new Scanner(System.in);
             System.out.println("Sisestage oma aadress: ");
@@ -47,7 +47,7 @@ public class Main {
             }
         }
 
-        public static void saabuvadBussid(Parser parser) throws Exception{
+        static void saabuvadBussid(Parser parser) throws Exception{
             //Parser parser = new Parser();
             Scanner scanner = new Scanner(System.in);
             System.out.println("Sisestage peatuse nimi: ");
@@ -98,13 +98,13 @@ public class Main {
 //                System.out.println("2. Saabuvad bussid");
 //                System.out.println("3. Sulge programm");
                 System.out.println("\nSisesta menüü valik: ");
-                int valik = scanner.nextInt();
+                String valik = scanner.nextLine();
 
 
                 switch (valik) {
-                    case 1: lähimadBussipeatused(parser);break;
-                    case 2: saabuvadBussid(parser);break;
-                    case 3: sulge = true; break;
+                    case "1": lähimadBussipeatused(parser);break;
+                    case "2": saabuvadBussid(parser);break;
+                    case "3": sulge = true; break;
                     default:
                         System.out.println("Sellist valikut ei ole.");
                 }

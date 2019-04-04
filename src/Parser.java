@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 
@@ -97,11 +96,17 @@ public class Parser {
         }
         in.close();
 
-        //Read JSON response and print
-        JSONObject myResponse = new JSONObject(response.toString().substring(1, response.length()));
-        double[] coordinates = {Double.parseDouble(myResponse.getString("lat")), Double.parseDouble(myResponse.getString("lon"))};
+        if (response.length() > 2) {
+            //Read JSON response and print
+            JSONObject myResponse = new JSONObject(response.toString().substring(1, response.length()));
+            double[] coordinates = {Double.parseDouble(myResponse.getString("lat")), Double.parseDouble(myResponse.getString("lon"))};
 
-        return coordinates;
+            return coordinates;
+        } else {
+            double[] coordinates = {0, 0};
+            System.out.println("Vale aadress!");
+            return coordinates;
+        }
 
     }
 
