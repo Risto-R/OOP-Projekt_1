@@ -16,19 +16,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
         primaryStage.setTitle("Sõiduplaan");
 
-        TabPane tabPane = new TabPane();
-        Tab tab1 = new Tab("Sõiduplaan");
-        tab1.setContent(root);
-        tabPane.getTabs().add(tab1);
-
-        Parent favorites = FXMLLoader.load(getClass().getResource("secondWindow.fxml"));
-        Tab tab2 = new Tab("Ajalugu");
-        tab2.setContent(favorites);
-        tabPane.getTabs().add(tab2);
-
-        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
-
-        primaryStage.setScene(new Scene(tabPane));
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setMinHeight(440);
+        primaryStage.setMinWidth(680);
+        primaryStage.setMaxHeight(440);
         primaryStage.show();
 
 

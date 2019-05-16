@@ -47,7 +47,6 @@ public class Parser {
 
             int number = Character.getNumericValue(time.charAt(8));
             if (busNumber.equals("")) {
-                System.out.println(1 + time.substring(time.lastIndexOf(" ")));
                 busTimetable.add(new Bus(time.substring(0, 5), time.substring(time.lastIndexOf(" ")), title));
             } else {
                 if (number == Integer.valueOf(busNumber)) {
@@ -108,17 +107,17 @@ public class Parser {
         }
         in.close();
 
-            if (response.length() > 2) {
-                //Read JSON response and print
-                JSONObject myResponse = new JSONObject(response.toString().substring(1, response.length()));
-                double[] coordinates = {Double.parseDouble(myResponse.getString("lat")), Double.parseDouble(myResponse.getString("lon"))};
-                return coordinates;
+        if (response.length() > 2) {
+            //Read JSON response and print
+            JSONObject myResponse = new JSONObject(response.toString().substring(1, response.length()));
+            double[] coordinates = {Double.parseDouble(myResponse.getString("lat")), Double.parseDouble(myResponse.getString("lon"))};
+            return coordinates;
 
-            } else {
-                double[] coordinates = {0, 0};
-                System.out.println("Vale aadress!");
-                return coordinates;
-            }
+        } else {
+            double[] coordinates = {0, 0};
+            System.out.println("Vale aadress!");
+            return coordinates;
+        }
     }
 
     // Calculate the distance between two points

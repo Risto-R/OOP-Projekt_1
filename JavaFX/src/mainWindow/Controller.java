@@ -34,25 +34,23 @@ public class Controller implements Initializable {
         name.setCellValueFactory(new PropertyValueFactory<Bus, String>("busName"));
         direction.setCellValueFactory(new PropertyValueFactory<Bus, String>("busDirection"));
     }
-public void SavePeatused(String peatus) throws Exception {
+    public void SavePeatused(String peatus) throws Exception {
         try (BufferedWriter kirjutaja = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("OtsitudPeatused.txt", true), "UTF-8"))) {
-    kirjutaja.write(peatus + "\n");
-}
-}
+            kirjutaja.write(peatus + "\n");
+        }
+    }
 
-public void SaveAadress(String aadress,String raadius) throws Exception{try (BufferedWriter kirjutaja = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("OtsitudAadressid.txt", true), "UTF-8"))) {
-    kirjutaja.write(aadress +"      R: "+raadius+ "\n");
-}}
+    public void SaveAadress(String aadress,String raadius) throws Exception{try (BufferedWriter kirjutaja = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("OtsitudAadressid.txt", true), "UTF-8"))) {
+        kirjutaja.write(aadress +"      R: "+raadius+ "\n");
+    }}
     // Handling stopSearchButton click event
     public void handleStopSearchButton() throws Exception {
         SavePeatused(busStopInput.getText());
-        System.out.println("Button clicked!");
         ArrayList<BusStop> stops = parser.getStopId(busStopInput.getText());
         if (stops.size() == 1) {
             //busStopInput.setStyle("-fx-text-inner-color: black;");
             table.setItems(parser.parseXML(stops.get(0).getStopId(), ""));
         } else if (stops.size() > 1) { // If array has more than 1 stops, show dialog window with stops options
-            System.out.println("On leitud mitu peutust sama nimega!");
             // Initializing dialog windows with stops information
             ChoiceDialog<BusStop> dialog = new ChoiceDialog<>(stops.get(0), stops);
             dialog.setTitle("Peatuse valik");
@@ -63,7 +61,6 @@ public void SaveAadress(String aadress,String raadius) throws Exception{try (Buf
 
             result.ifPresent(busStop -> {
                 try {
-                    System.out.println(parser.parseXML(busStop.getStopId(),""));
                     table.setItems(parser.parseXML(busStop.getStopId(), "")); // Providing chosen stop to the parser and showing putting data into the table
                 } catch (ParserConfigurationException e) {
                     System.out.println("Parser error!");
@@ -95,7 +92,6 @@ public void SaveAadress(String aadress,String raadius) throws Exception{try (Buf
     // Handling nearestStopsButton click event
     public void handleNearestStopsButton() throws Exception {
         SaveAadress(aadressInput.getText(),radiusInput.getText());
-        System.out.println("Nearest stop button!");
         if (!aadressInput.getText().isEmpty() || !radiusInput.getText().isEmpty()) { // If either TextFields are not empty, proceed with parsing
             listView.setItems(lähimadBussipeatused(parser, aadressInput.getText(), radiusInput.getText()));
         } else {
@@ -139,7 +135,14 @@ public void SaveAadress(String aadress,String raadius) throws Exception{try (Buf
                     }
                 }
             } catch (NumberFormatException e) {
-                System.out.println("parseDouble() viga!");
+                //System.out.println("parseDouble() viga!");
+                // Initializing dialog window
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Vale otsingu raadius");
+
+                alert.setHeaderText(null);
+                alert.setContentText("Palun sisestage ainult numbreid!");
+                alert.showAndWait();
             }
 //            Set<String> unikaalsedPeatused = new HashSet<String>(peatused);
 //            // Väljastab peatused ilma kordusteta

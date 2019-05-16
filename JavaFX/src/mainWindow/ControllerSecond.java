@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +18,7 @@ public class ControllerSecond implements Initializable {
     @FXML private ListView<String> listView;
     @FXML private ListView<String> listView2;
 
-@Override
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
